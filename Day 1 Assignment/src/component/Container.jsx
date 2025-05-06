@@ -10,7 +10,7 @@ function Container() {
 
       </div>
 
-      <div className=' w-[731px] bg-orange-800 flex justify-around it ems-center'>
+      <div className=' w-[731px] bg-orange-800 m-auto flex item-ce justify-around it ems-center'>
       <p> Annapurna I Main is a towering peak in the Himalayas, standing at an elevation of 8,091 meters (26,545 feet) above sea level. It is located in the Annapurna mountain range in north-central Nepal and is part of the larger Annapurna Massif. Geographically, it lies at coordinates 28.5958° N and 83.8203° E. As one of the world's highest mountains, Annapurna I holds a significant place in mountaineering history and natural geography.</p>
       </div>
       </div>
