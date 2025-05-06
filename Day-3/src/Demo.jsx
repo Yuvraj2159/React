@@ -8,7 +8,7 @@ function FavouriteColor() {
   const [color,setColor]=useState("red"); //value , setSate=>function
   return (
     <>
-    <div className=' min-h-screen size-full bg-slate-700'>
+    <div className='w-full min-h-[100vh] ' style={{ backgroundColor: color }}>
     
     <div className='text-white'>My favorite color is {color}! </div>
     <div>
