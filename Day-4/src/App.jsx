@@ -11,8 +11,7 @@ function App() {
 
   const handleAddTask = () => {
     if (newTask.trim() !== '') {
-      // setTasks([...tasks, { text: newTask.trim(), completed: false }]);
-      setTasks([{ text: newTask.trim(), completed: false }]);
+      setTasks([...tasks, { text: newTask.trim(), completed: false }]);
       setNewTask('');
     }
   };
@@ -26,10 +25,6 @@ function App() {
     updated[index].completed = !updated[index].completed;
     setTasks(updated);
   };
-
-  const editTask = (index) => {
-    
-  }
 
   return (
     <div className="w-full min-h-[100vh] bg-slate-500 flex items-center justify-center px-4">
@@ -53,7 +48,37 @@ function App() {
           </button>
         </div>
 
-       
+        {/* Task List */}
+        <ul className="space-y-2">
+          {tasks.map((task, index) => (
+            <li
+              key={index}
+              className="flex items-center justify-between bg-gray-100 p-2 rounded"
+            >
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => toggleTask(index)}
+                  className="mr-3 w-4 h-4"
+                />
+                <span
+                  className={`${
+                    task.completed ? 'line-through text-gray-500' : ''
+                  }`}
+                >
+                  {task.text}
+                </span>
+              </div>
+              <button
+                onClick={() => handleDeleteTask(index)}
+                className="text-red-500 hover:text-red-700"
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
