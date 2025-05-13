@@ -1,13 +1,14 @@
-// Card.jsx
 import React, { useState } from "react";
 import Button from "./Button";
 import { Trash2 } from "lucide-react";
 
 function Card({ value, bgColor, onDelete }) {
   const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
   const toggleLike = () => {
     setLiked((prev) => !prev);
+    setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
   };
 
   return (
@@ -41,13 +42,13 @@ function Card({ value, bgColor, onDelete }) {
         )}
       </div>
 
-      {/* Caption Section - Reserve Space */}
+      {/* Caption Section */}
       <p className="text-sm text-gray-700 italic px-2 text-center min-h-[24px]">
         {value?.caption || ""}
       </p>
 
-      {/* Like/Unlike Button (Icon Only) */}
-      <div className="flex gap-2 my-2">
+      {/* Like/Unlike Button with Counter */}
+      <div className="flex gap-2 my-2 items-center">
         <Button
           liked={liked}
           onClick={toggleLike}
@@ -55,6 +56,7 @@ function Card({ value, bgColor, onDelete }) {
             liked ? "bg-pink-600" : "bg-indigo-500 hover:bg-indigo-600"
           }`}
         />
+        <span className="text-gray-700 font-semibold">{likeCount}</span>
       </div>
     </div>
   );
