@@ -1,18 +1,9 @@
-import First from './Component/First';
+import Counter from "./Component/Counter";
 
 export default function App() {
-
-
-
-
-return(
-<>
-<First/>
-
-
-</>
-
-
-)
-
+  return (
+    <>
+      <Counter />
+    </>
+  )
 }
