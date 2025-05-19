@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
+import { BrowserRouter as Router, useLocation, Link } from 'react-router-dom';
 
 function TaskManager({ tasks, onAdd, onUpdate, onDelete, filter }) {
   const [title, setTitle] = useState('');
@@ -45,9 +46,7 @@ function TaskManager({ tasks, onAdd, onUpdate, onDelete, filter }) {
   return (
     <div className="max-w-2xl mx-auto mt-10 p-4">
       <h2 className="text-3xl font-bold mb-6">{filter || 'All'} Tasks</h2>
-
-      {/* Add Task Form Only on All Tasks View */}
-      {!filter && (
+      
         <form onSubmit={handleAdd} className="mb-6">
           <input 
             type="text" 
@@ -61,9 +60,18 @@ function TaskManager({ tasks, onAdd, onUpdate, onDelete, filter }) {
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
           >
             Add Task
+
           </button>
+          {/* Filter Links */}
+                <div className="flex justify-center bg-gray-100 p-4 space-x-6">
+                  <Link to="/" className="text-gray-700 hover:underline">All</Link>
+                  <Link to="/new-task" className="text-gray-700 hover:underline">New Task</Link>
+                  <Link to="/on-progress" className="text-gray-700 hover:underline">On Progress</Link>
+                  <Link to="/completed" className="text-gray-700 hover:underline">Completed</Link>
+                </div>
         </form>
-      )}
+
+      
 
       {filteredTasks.length === 0 ? (
         <p className="text-gray-600 text-center">No tasks found.</p>

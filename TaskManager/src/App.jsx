@@ -46,13 +46,7 @@ function MainContent({ tasks, addTask, updateTask, deleteTask }) {
         <h1 className="text-2xl font-bold">Task Manager</h1>
       </nav>
 
-      {/* Filter Links */}
-      <div className="flex justify-center bg-gray-100 p-4 space-x-6">
-        <Link to="/" className="text-gray-700 hover:underline">All</Link>
-        <Link to="/new-task" className="text-gray-700 hover:underline">New Task</Link>
-        <Link to="/on-progress" className="text-gray-700 hover:underline">On Progress</Link>
-        <Link to="/completed" className="text-gray-700 hover:underline">Completed</Link>
-      </div>
+      
 
       {/* Task Manager Always Visible */}
       <TaskManager 
