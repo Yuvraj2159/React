@@ -4,27 +4,37 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true); // ✅ loading flag
 
-  // Restore login state on refresh
   useEffect(() => {
-    const stored = localStorage.getItem("isAuthenticated");
-    if (stored === "true") {
-      setIsAuthenticated(true);
+    try {
+      const storedUser = localStorage.getItem("loggedInUser");
+      if (storedUser && storedUser !== "undefined") {
+        const parsed = JSON.parse(storedUser);
+        setUser(parsed);
+        setIsAuthenticated(true);
+      }
+    } catch (err) {
+      localStorage.removeItem("loggedInUser");
     }
+    setIsAuthLoading(false); // ✅ done loading
   }, []);
 
-  const login = () => {
+  const login = (userData) => {
+    localStorage.setItem("loggedInUser", JSON.stringify(userData));
+    setUser(userData);
     setIsAuthenticated(true);
-    localStorage.setItem("isAuthenticated", "true");
   };
 
   const logout = () => {
+    localStorage.removeItem("loggedInUser");
+    setUser(null);
     setIsAuthenticated(false);
-    localStorage.removeItem("isAuthenticated");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isAuthLoading, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -23,7 +23,7 @@ function DashboardOverview() {
           <h3 className="text-xl font-semibold text-blue-800">Total Products</h3>
           <p className="text-3xl font-bold mt-2">{products.length}</p>
         </div>
-        <div className="bg-green-100 p-6 rounded shadow text-center">
+        <div className="bg-green-100 p-6 rounded shadoww text-center">
           <h3 className="text-xl font-semibold text-green-800">Total Orders</h3>
           <p className="text-3xl font-bold mt-2">{orders.length}</p>
         </div>

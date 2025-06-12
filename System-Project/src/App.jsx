@@ -8,11 +8,16 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import ProductDetails from "./user/pages/ProductDetails.jsx";
 import Cart from "./user/pages/Cart";
+import ProfileSettings from "./user/pages/ProfileSettings";
 import AdminDashboard from "./pages/AdminDashboard";
 
-// Protected route wrapper
+// Protected Route Wrapper
 function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, isAuthLoading } = useContext(AuthContext);
+
+  // Wait for auth state to load before deciding
+  if (isAuthLoading) return null; // Or add a loading spinner here
+
   return isAuthenticated ? children : <Navigate to="/" />;
 }
 
@@ -28,7 +33,7 @@ function App() {
 
           {/* Protected User Routes */}
           <Route
-            path="Home"
+            path="/home"
             element={
               <ProtectedRoute>
                 <Home />
@@ -48,6 +53,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/profile"
+            element={
+              <ProtectedRoute>
+                <ProfileSettings />
               </ProtectedRoute>
             }
           />

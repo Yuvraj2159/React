@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Toast from "../../components/Toast";
 
 function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
@@ -26,7 +28,11 @@ function ProductDetails() {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
+    window.dispatchEvent(new Event("cart-updated"));
+
+    // ✅ Show popup
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
 
   if (!product) {
@@ -41,6 +47,7 @@ function ProductDetails() {
   return (
     <>
       <Navbar />
+      {showToast && <Toast message="Product added to cart!" />}
       <div className="p-6 max-w-3xl mx-auto">
         <img
           src={product.image}
@@ -51,7 +58,6 @@ function ProductDetails() {
         <p className="text-lg text-gray-700 mb-2">${product.price}</p>
         <p className="text-sm text-gray-500 mb-4">Category: {product.category}</p>
         <p className="mb-6 text-gray-600">
-          {/* Optional description placeholder */}
           This is a great product that suits your needs. More features and specifications coming soon.
         </p>
         <button

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Toast from "../../components/Toast"; // ✅ Import toast
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
+  const [showToast, setShowToast] = useState(false); // ✅ State for toast
 
   const handleAddToCart = (e) => {
-    e.stopPropagation(); // Prevent routing on button click
+    e.stopPropagation();
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existing = cart.find((item) => item.id === product.id);
@@ -17,14 +19,20 @@ function ProductCard({ product }) {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
+    window.dispatchEvent(new Event("cart-updated")); // ✅ Update navbar
+
+    // ✅ Show toast
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
 
   return (
     <div
       onClick={() => navigate(`/user/product/${product.id}`)}
-      className="border p-4 rounded shadow hover:shadow-lg cursor-pointer"
+      className="relative border p-4 rounded shadow hover:shadow-lg cursor-pointer"
     >
+      {showToast && <Toast message="Product added to cart!" />}
+      
       <img
         src={product.image}
         alt={product.name}

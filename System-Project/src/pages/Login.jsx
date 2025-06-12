@@ -18,7 +18,7 @@ function Login() {
     if (role === "user") {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.email === email && storedUser.password === password) {
-        login();
+        login(storedUser); // ✅ pass user data
         navigate("/home");
       } else {
         setError("Invalid user credentials.");
@@ -28,7 +28,7 @@ function Login() {
       const adminPassword = "admin123";
 
       if (email === adminEmail && password === adminPassword) {
-        login();
+        login({ email, role: "admin" }); // ✅ pass admin info
         navigate("/admin-dashboard");
       } else {
         setError("Invalid admin credentials.");
